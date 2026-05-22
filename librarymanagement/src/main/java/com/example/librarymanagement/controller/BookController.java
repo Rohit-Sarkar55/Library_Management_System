@@ -27,13 +27,8 @@ public class BookController {
 
     @GetMapping("/{id}")
     public ResponseEntity<BookDto> getBookById(@PathVariable Long id) {
-        try {
-            BookDto bookDto = bookService.getBookById(id);
-            return ResponseEntity.ok(bookDto);
-        }catch (Exception e){
-            log.info(e.getMessage());
-        }
-        return ResponseEntity.notFound().build();
+        BookDto bookDto = bookService.getBookById(id);
+        return ResponseEntity.ok(bookDto);
     }
 
     @GetMapping("/search")
@@ -47,15 +42,8 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<BookDto> createBook(@RequestBody @Valid BookRequest request) {
-        try{
-            BookDto response = bookService.createBook(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        }catch (Exception e){
-            log.info(e.getMessage());
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-
-
+        BookDto response = bookService.createBook(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{id}")
