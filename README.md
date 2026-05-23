@@ -8,7 +8,7 @@ A full-stack Library Management System built with Spring Boot (backend) and Angu
 
 | Layer | Technology |
 |-------|------------|
-| Backend | Java 17, Spring Boot 3 |
+| Backend | Java 17, Spring Boot 4 |
 | Database | PostgreSQL (Neon cloud) |
 | ORM | Spring Data JPA / Hibernate |
 | API Docs | Swagger / OpenAPI |
