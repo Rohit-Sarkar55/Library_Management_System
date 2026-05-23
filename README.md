@@ -244,6 +244,13 @@ Controller → Service → Repository → Database
 
 > Note: Backend is hosted on Render free tier and may take 30-60 seconds to wake up after inactivity.
 
+## Screenshots
+
+### Dashboard
+<img width="948" height="412" alt="library_management_dashboard_ss" src="https://github.com/user-attachments/assets/7ae090a2-2226-429d-8e8b-ec9b128a0f1d" />
+
+
+
 ## Author
 
 **Rohit Sarkar**
