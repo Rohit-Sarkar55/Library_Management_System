@@ -1,1 +1,118 @@
-<p>book-form works!</p>
+<div class="row justify-content-center">
+  <div class="col-md-8">
+
+    <div class="d-flex align-items-center mb-4">
+      <a routerLink="/books" class="btn btn-outline-secondary me-3">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <h2 class="mb-0">
+        {{ isEditMode ? 'Edit Book' : 'Add New Book' }}
+      </h2>
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="text-center py-4">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <div *ngIf="!loading" class="card">
+      <div class="card-body">
+        <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+
+          <!-- Title -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Title <span class="text-danger">*</span></label>
+            <input type="text" class="form-control"
+              [class.is-invalid]="isInvalid('title')"
+              formControlName="title"
+              placeholder="Enter book title">
+            <div class="invalid-feedback">Title is required</div>
+          </div>
+
+          <!-- Author -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Author <span class="text-danger">*</span></label>
+            <input type="text" class="form-control"
+              [class.is-invalid]="isInvalid('author')"
+              formControlName="author"
+              placeholder="Enter author name">
+            <div class="invalid-feedback">Author is required</div>
+          </div>
+
+          <!-- ISBN -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">ISBN <span class="text-danger">*</span></label>
+            <input type="text" class="form-control"
+              [class.is-invalid]="isInvalid('isbn')"
+              formControlName="isbn"
+              placeholder="Enter 10 or 13 digit ISBN">
+            <div class="invalid-feedback">
+              ISBN is required and must be 10 or 13 digits
+            </div>
+          </div>
+
+          <!-- Category -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Category</label>
+            <input type="text" class="form-control"
+              formControlName="category"
+              placeholder="e.g. Fiction, Science, History">
+          </div>
+
+          <!-- Total and Available copies -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-semibold">Total Copies <span class="text-danger">*</span></label>
+              <input type="number" class="form-control"
+                [class.is-invalid]="isInvalid('totalCopies')"
+                formControlName="totalCopies"
+                min="0">
+              <div class="invalid-feedback">
+                Total copies is required and cannot be negative
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-semibold">Available Copies <span class="text-danger">*</span></label>
+              <input type="number" class="form-control"
+                [class.is-invalid]="isInvalid('availableCopies')"
+                formControlName="availableCopies"
+                min="0">
+              <div class="invalid-feedback">
+                Available copies is required and cannot be negative
+              </div>
+            </div>
+          </div>
+
+          <!-- Shelf Location -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold">Shelf Location</label>
+            <input type="text" class="form-control"
+              formControlName="shelfLocation"
+              placeholder="e.g. A1, B2">
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary"
+              [disabled]="submitting">
+              <span *ngIf="submitting"
+                class="spinner-border spinner-border-sm me-1">
+              </span>
+              {{ isEditMode ? 'Update Book' : 'Create Book' }}
+            </button>
+            <a routerLink="/books" class="btn btn-outline-secondary">
+              Cancel
+            </a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
