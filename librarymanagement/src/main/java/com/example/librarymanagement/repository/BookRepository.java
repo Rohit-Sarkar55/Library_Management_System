@@ -27,10 +27,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     // Search by title, author, isbn, category
     @Query("SELECT b FROM Book b WHERE b.isDeleted = false AND " +
-            "(:title IS NULL OR LOWER(b.title) LIKE LOWER(CONCAT('%', :title, '%'))) AND " +
-            "(:author IS NULL OR LOWER(b.author) LIKE LOWER(CONCAT('%', :author, '%'))) AND " +
-            "(:isbn IS NULL OR b.isbn = :isbn) AND " +
-            "(:category IS NULL OR LOWER(b.category) LIKE LOWER(CONCAT('%', :category, '%')))")
+            "(:title IS NULL OR LOWER(b.title) LIKE LOWER(CONCAT('%', CAST(:title AS string), '%'))) AND " +
+            "(:author IS NULL OR LOWER(b.author) LIKE LOWER(CONCAT('%', CAST(:author AS string), '%'))) AND " +
+            "(:isbn IS NULL OR b.isbn = CAST(:isbn AS string)) AND " +
+            "(:category IS NULL OR LOWER(b.category) LIKE LOWER(CONCAT('%', CAST(:category AS string), '%')))")
     List<Book> searchBooks(
             @Param("title") String title,
             @Param("author") String author,
