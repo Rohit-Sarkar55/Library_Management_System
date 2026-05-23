@@ -234,6 +234,15 @@ Controller → Service → Repository → Database
 - **Flyway disabled** — tables auto created by Hibernate via `ddl-auto=update` for simplicity
 
 ---
+## Live Demo
+
+| Layer | URL |
+|-------|-----|
+| Frontend | https://library-management-system-vert-eight.vercel.app |
+| Backend API | https://library-management-system-6a61.onrender.com |
+| Swagger UI | https://library-management-system-6a61.onrender.com/swagger-ui/index.html |
+
+> Note: Backend is hosted on Render free tier and may take 30-60 seconds to wake up after inactivity.
 
 ## Author
 
