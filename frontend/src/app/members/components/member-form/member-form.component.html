@@ -1,1 +1,72 @@
-<p>member-form works!</p>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+
+    <div class="d-flex align-items-center mb-4">
+      <a routerLink="/members" class="btn btn-outline-secondary me-3">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <h2 class="mb-0">
+        {{ isEditMode ? 'Edit Member' : 'Add New Member' }}
+      </h2>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="text-center py-4">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <div *ngIf="!loading" class="card">
+      <div class="card-body">
+        <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+
+          <!-- Name -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">
+              Name <span class="text-danger">*</span>
+            </label>
+            <input type="text" class="form-control"
+              [class.is-invalid]="isInvalid('name')"
+              formControlName="name"
+              placeholder="Enter member name">
+            <div class="invalid-feedback">Name is required</div>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold">
+              Email <span class="text-danger">*</span>
+            </label>
+            <input type="email" class="form-control"
+              [class.is-invalid]="isInvalid('email')"
+              formControlName="email"
+              placeholder="Enter email address">
+            <div class="invalid-feedback">
+              Valid email is required
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary"
+              [disabled]="submitting">
+              <span *ngIf="submitting"
+                class="spinner-border spinner-border-sm me-1">
+              </span>
+              {{ isEditMode ? 'Update Member' : 'Create Member' }}
+            </button>
+            <a routerLink="/members" class="btn btn-outline-secondary">
+              Cancel
+            </a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

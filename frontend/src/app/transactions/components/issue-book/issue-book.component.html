@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+  <div class="col-md-6">
+
+    <div class="d-flex align-items-center mb-4">
+      <a routerLink="/transactions" class="btn btn-outline-secondary me-3">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <h2 class="mb-0">Issue Book</h2>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="issueForm" (ngSubmit)="onSubmit()">
+
+          <!-- Member -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">
+              Member <span class="text-danger">*</span>
+            </label>
+            <select class="form-select"
+              [class.is-invalid]="isInvalid('memberId')"
+              formControlName="memberId">
+              <option value="">Select a member</option>
+              <option *ngFor="let member of members"
+                [value]="member.id">
+                {{ member.name }} ({{ member.email }})
+              </option>
+            </select>
+            <div class="invalid-feedback">Member is required</div>
+          </div>
+
+          <!-- Book -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold">
+              Book <span class="text-danger">*</span>
+            </label>
+            <select class="form-select"
+              [class.is-invalid]="isInvalid('bookId')"
+              formControlName="bookId">
+              <option value="">Select a book</option>
+              <option *ngFor="let book of books"
+                [value]="book.id">
+                {{ book.title }} — {{ book.author }}
+                ({{ book.availableCopies }} available)
+              </option>
+            </select>
+            <div class="invalid-feedback">Book is required</div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary"
+              [disabled]="submitting">
+              <span *ngIf="submitting"
+                class="spinner-border spinner-border-sm me-1">
+              </span>
+              Issue Book
+            </button>
+            <a routerLink="/transactions"
+              class="btn btn-outline-secondary">
+              Cancel
+            </a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

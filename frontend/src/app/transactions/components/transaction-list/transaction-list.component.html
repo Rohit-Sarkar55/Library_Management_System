@@ -1,1 +1,75 @@
-<p>transaction-list works!</p>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2><i class="bi bi-arrow-left-right me-2"></i>Transactions</h2>
+  <a routerLink="/transactions/issue" class="btn btn-primary">
+    <i class="bi bi-plus-lg me-1"></i> Issue Book
+  </a>
+</div>
+
+<!-- Success message -->
+<div *ngIf="successMessage" class="alert alert-success">
+  {{ successMessage }}
+</div>
+
+<!-- Error message -->
+<div *ngIf="error" class="alert alert-danger">
+  {{ error }}
+</div>
+
+<!-- Loading -->
+<div *ngIf="loading" class="text-center py-4">
+  <div class="spinner-border text-primary"></div>
+</div>
+
+<!-- Transactions table -->
+<div *ngIf="!loading" class="card">
+  <div class="card-body p-0">
+    <table class="table table-hover mb-0">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Book</th>
+          <th>Member</th>
+          <th>Status</th>
+          <th>Issued At</th>
+          <th>Due Date</th>
+          <th>Returned At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="transactions.length === 0">
+          <td colspan="8" class="text-center py-4 text-muted">
+            No transactions found
+          </td>
+        </tr>
+        <tr *ngFor="let t of transactions; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <div>{{ t.bookTitle }}</div>
+            <small class="text-muted">{{ t.bookIsbn }}</small>
+          </td>
+          <td>
+            <div>{{ t.memberName }}</div>
+            <small class="text-muted">{{ t.memberEmail }}</small>
+          </td>
+          <td>
+            <span [class]="getStatusBadgeClass(t.status)">
+              {{ t.status }}
+            </span>
+          </td>
+          <td>{{ t.issuedAt | date: 'mediumDate' }}</td>
+          <td>{{ t.dueDate | date: 'mediumDate' }}</td>
+          <td>{{ t.returnedAt ? (t.returnedAt | date: 'mediumDate') : '-' }}</td>
+          <td>
+            <button
+              class="btn btn-sm btn-outline-success"
+              (click)="returnBook(t.id)"
+              [disabled]="t.status === 'RETURNED'">
+              <i class="bi bi-arrow-return-left"></i> Return
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
