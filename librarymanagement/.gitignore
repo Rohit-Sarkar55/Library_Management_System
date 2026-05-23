@@ -38,3 +38,7 @@ application-dev.properties
 application-prod.properties
 .env
 *.env
+
+
+# Test properties with credentials
+src/test/resources/application.properties
