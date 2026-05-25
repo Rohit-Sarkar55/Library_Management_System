@@ -10,6 +10,8 @@ import com.example.librarymanagement.exceptions.ResourceNotFoundException;
 import com.example.librarymanagement.repository.BookRepository;
 import com.example.librarymanagement.service.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -22,11 +24,9 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
     @Override
-    public List<BookDto> getAllBooks() {
-        return bookRepository.findAllActiveBooks()
-                .stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+    public Page<BookDto> getAllBooks(Pageable pageable) {
+        return bookRepository.findAllActiveBooks(pageable)
+                .map(this::mapToDto);
     }
 
     @Override

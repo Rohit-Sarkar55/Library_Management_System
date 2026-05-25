@@ -2,6 +2,8 @@ package com.example.librarymanagement.repository;
 
 
 import com.example.librarymanagement.entities.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +16,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     // Fetch all non-deleted books
     @Query("SELECT b FROM Book b WHERE b.isDeleted = false")
-    List<Book> findAllActiveBooks();
+    Page<Book> findAllActiveBooks(Pageable pageable);
 
     // Fetch single non-deleted book
     Optional<Book> findByIdAndIsDeletedFalse(Long id);

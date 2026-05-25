@@ -8,6 +8,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -88,7 +90,7 @@ class GlobalExceptionHandlerTest {
 
     @Test
     void handleGlobalException_returns500() throws Exception {
-        when(bookService.getAllBooks())
+        when(bookService.getAllBooks(any(Pageable.class)))
                 .thenThrow(new RuntimeException("Unexpected error"));
 
         mockMvc.perform(get("/api/books"))
