@@ -46,7 +46,7 @@ export class IssueBookComponent implements OnInit {
     this.bookService.getAllBooks().subscribe({
       next: (data) => {
         // Only show books with available copies
-        this.books = data.filter(b => b.availableCopies > 0);
+        this.books = data.content.filter(b => b.availableCopies > 0);
       },
       error: () => {
         this.error = 'Failed to load books';

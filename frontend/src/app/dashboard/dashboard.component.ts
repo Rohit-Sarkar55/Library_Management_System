@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
     // Load books count
     this.bookService.getAllBooks().subscribe({
       next: (books) => {
-        this.totalBooks = books.length;
+        this.totalBooks = books.totalElements;
       }
     });
 

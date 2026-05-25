@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Book, BookRequest } from '../models/book';
+import { Book, BookRequest, PageResponse } from '../models/book';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -13,9 +13,11 @@ export class BookService {
 
   constructor(private http: HttpClient) {}
 
-  getAllBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(this.apiUrl);
-  }
+  getAllBooks(page: number = 0, size: number = 10): Observable<PageResponse<Book>> {
+  return this.http.get<PageResponse<Book>>(
+    `${this.apiUrl}?page=${page}&size=${size}`
+  );
+}
 
   getBookById(id: number): Observable<Book> {
     return this.http.get<Book>(`${this.apiUrl}/${id}`);
